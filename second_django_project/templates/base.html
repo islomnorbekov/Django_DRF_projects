@@ -13,14 +13,33 @@
     />
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container">
-          <a href="{% url 'home' %}" class="navbar-brand">Django blog</a>
-          <span class="navbar-text">
-            <a href="{% url 'post_new' %}" class="me-2">new blog post</a>
-          </span>
-        </div>
-      </nav>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <a href="{% url 'home' %}" class="navbar-brand">Django blog</a>
+      <span class="navbar-text">
+        <a href="{% url 'post_new' %}" class="btn btn-link text-decoration-none text-white me-2" >New blog post</a>
+        {% if user.is_authenticated %}
+          <form method="POST" action="{% url 'logout' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link text-decoration-none text-white" >
+              Log Out
+            </button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}" class="me-2">Log In</a>
+          <a href="{% url 'signup' %}" class="me-2">Sign Up</a>
+        {% endif %}
+      </span>
+    </div>
+  </nav>  
+  {% if user.is_authenticated %}
+  <div class="container ">
+    <span class="navbar-text">
+      <p>Hello {{ user.username }}!</p>
+    </span>
+  </div>
+  {% endif %}
+  
       <main class="container">{% block content %} {% endblock content %}</main>
 </body>
 </html>
