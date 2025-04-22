@@ -1,0 +1,17 @@
+{
+  // Отключаем Prettier для Django-шаблонов
+  "[html]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
+  },
+  "[django-html]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
+  },
+
+  // Можно включить сохранение Prettier для других файлов
+  "editor.formatOnSave": true,
+
+  // Дополнительно: исключить директорию templates из Prettier
+  "prettier.ignorePath": ".prettierignore"
+}
