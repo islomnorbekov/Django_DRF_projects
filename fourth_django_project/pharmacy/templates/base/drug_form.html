@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Add New Drug{% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4">New Drug</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save" class="btn btn-primary">
+    </form>
+</div>
+{% endblock content %}

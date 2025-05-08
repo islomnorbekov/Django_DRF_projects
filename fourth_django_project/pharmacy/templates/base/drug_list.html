@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Drug Inventory{% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4">Drugs Inventory</h2>
+    <p>
+        <a href="{% url 'add_drug' %}" class="btn btn-primary">+ Add New</a>
+    </p>
+    <p>
+        {% if user.is_authenticated %}
+        <p>Hi, <strong>{{ user.username }}</strong>!</p>
+    </p>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
+    {% endif %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                    <th>Remaining</th>
+                    <th>Edit|Delete</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for drug in drugs %}
+                <tr>
+                    <td>{{ drug.pk }}</td>
+                    <td>{{ drug.added_by }}</td>
+                    <td>{{ drug.name }}</td>
+                    <td>{{ drug.quantity }}</td>
+                    <td>{{ drug.status }}</td>
+                    <td>{{ drug.remain }}</td>
+                    <td>
+                    <p>
+                        <a href="{% url 'drug_edit' drug.pk %}" class="btn btn-sm btn-warning">Edit</a>|
+                        <a href="{% url 'drug_delete' drug.pk %}" class="btn btn-sm btn-danger">Delete</a>       
+                    </p>
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}
